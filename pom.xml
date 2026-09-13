@@ -13,7 +13,7 @@
     <artifactId>api-core-starter</artifactId>
     <version>1.0.0</version>
     <name>api-core-starter</name>
-    <description>Core Infrastructure and Security Foundation Starter</description>
+    <description>Production-ready Spring Boot starter providing centralized JWT security, exception handling, and standardized API responses for modular enterprise applications.</description>
     <url>https://shamodha.com</url>
     <packaging>jar</packaging>
 
