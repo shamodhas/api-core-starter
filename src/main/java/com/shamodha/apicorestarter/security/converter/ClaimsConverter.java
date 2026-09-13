@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shamodha.apicorestarter.security.model.UserContext;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 
@@ -26,6 +27,7 @@ public interface ClaimsConverter {
 
     UserContext convertToUserContext(Claims claims);
 
+    @Slf4j
     class Default implements ClaimsConverter {
         private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -42,7 +44,7 @@ public interface ClaimsConverter {
 
         @Override
         public UserContext convertToUserContext(Claims claims) {
-            return toObject(claims, UserContext.class);
+            return toObject(claims, UserContext.Default.class);
         }
     }
 }

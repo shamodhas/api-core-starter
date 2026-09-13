@@ -32,16 +32,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ApiResponse<Void>> handleApiException(ApiException ex) {
+        log.error("Err:", ex);
         return ResponseHandler.error(ex.getStatus(), ex.getMessage());
     }
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ApiResponse<Void>> handleAuthenticationException(AuthenticationException ex) {
+        log.error("Err:", ex);
         return ResponseHandler.error(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiResponse<Void>> handleAccessDeniedException(AccessDeniedException ex) {
+        log.error("Err:", ex);
         return ResponseHandler.error(HttpStatus.FORBIDDEN, ex.getMessage());
     }
 
@@ -50,6 +53,7 @@ public class GlobalExceptionHandler {
         String validationErrors = ex.getBindingResult().getFieldErrors().stream()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .collect(Collectors.joining(", "));
+        log.error("Validation failed:", ex);
         return ResponseHandler.error(HttpStatus.BAD_REQUEST, "Validation failed: " + validationErrors);
     }
 

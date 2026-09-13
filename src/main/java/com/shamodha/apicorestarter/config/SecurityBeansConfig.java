@@ -86,17 +86,9 @@ public class SecurityBeansConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public AuthenticationProvider authenticationProvider(
-            ObjectProvider<UserDetailsService> userDetailsServiceProvider,
-            PasswordEncoder passwordEncoder
-    ) {
-        UserDetailsService userDetailsService = userDetailsServiceProvider.getIfAvailable();
+    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(
-                userDetailsService != null ? userDetailsService : identifier -> {
-                    throw new org.springframework.security.core.userdetails.UsernameNotFoundException("UserDetailsService not configured");
-                }
-        );
+        authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }

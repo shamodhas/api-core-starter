@@ -1,8 +1,10 @@
 package com.shamodha.apicorestarter.security.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,13 +21,14 @@ import java.util.List;
  * ========================================================
  */
 
-public interface UserContext {
+public interface UserContext extends UserDetails {
     String getUserId();
 
     String getUsernameOrEmail();
 
     List<String> getRoles();
 
+    @Override
     default Collection<? extends GrantedAuthority> getAuthorities() {
         List<String> roles = getRoles();
         if (roles == null || roles.isEmpty()) {
@@ -37,7 +40,38 @@ public interface UserContext {
                 .toList();
     }
 
+    @Override
+    default String getPassword() {
+        return "";
+    }
+
+    @Override
+    default String getUsername() {
+        return getUsernameOrEmail();
+    }
+
+    @Override
+    default boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    default boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    default boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    default boolean isEnabled() {
+        return true;
+    }
+
     @Builder
+    @JsonIgnoreProperties(ignoreUnknown = true)
     record Default(
             String userId,
             String usernameOrEmail,

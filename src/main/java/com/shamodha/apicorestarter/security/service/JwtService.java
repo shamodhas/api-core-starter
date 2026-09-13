@@ -9,6 +9,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -27,6 +28,7 @@ import java.util.Map;
  * ========================================================
  */
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class JwtService {
@@ -80,6 +82,7 @@ public class JwtService {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+
 
         return claimsConverter.convertToUserContext(claims);
     }
