@@ -13,7 +13,9 @@
     <artifactId>api-core-starter</artifactId>
     <version>1.0.0</version>
     <name>api-core-starter</name>
-    <description>Production-ready Spring Boot starter providing centralized JWT security, exception handling, and standardized API responses for modular enterprise applications.</description>
+    <description>Production-ready Spring Boot starter providing centralized JWT security, exception handling, and
+        standardized API responses for modular enterprise applications.
+    </description>
     <url>https://shamodha.com</url>
     <packaging>jar</packaging>
 
@@ -33,6 +35,14 @@
             <url>https://shamodha.com</url>
         </developer>
     </developers>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/shamodhas/api-core-starter</url>
+        </repository>
+    </distributionManagement>
 
     <scm>
         <connection>scm:git:git://github.com/shamodhas/api-core-starter.git</connection>
@@ -98,6 +108,7 @@
         </dependency>
 
     </dependencies>
+
 
     <build>
         <plugins>
