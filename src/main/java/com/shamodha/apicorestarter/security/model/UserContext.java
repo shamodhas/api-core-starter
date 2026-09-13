@@ -1,5 +1,6 @@
 package com.shamodha.apicorestarter.security.model;
 
+import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -34,5 +35,31 @@ public interface UserContext {
                 .map(role -> new SimpleGrantedAuthority(
                         role.startsWith("ROLE_") ? role : "ROLE_" + role))
                 .toList();
+    }
+
+    @Builder
+    record Default(
+            String userId,
+            String usernameOrEmail,
+            List<String> roles
+    ) implements UserContext {
+        @Override
+        public String getUserId() {
+            return userId;
+        }
+
+        @Override
+        public String getUsernameOrEmail() {
+            return usernameOrEmail;
+        }
+
+        @Override
+        public List<String> getRoles() {
+            return roles;
+        }
+    }
+
+    static Default.DefaultBuilder builder() {
+        return Default.builder();
     }
 }

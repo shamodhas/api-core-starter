@@ -45,6 +45,10 @@ public class JwtService {
         return buildToken(claims, userContext.getUserId(), securityProperties.jwt().expiration(), getSignInKey());
     }
 
+    public final String generateToken(UserContext userContext) {
+        return generateToken(userContext, (Map<String, Object>) null);
+    }
+
     public final String generateRefreshToken(UserContext userContext) {
         Long refreshExpiration = securityProperties.jwt().refreshExpiration();
         if (refreshExpiration == null || refreshExpiration <= 0) {
